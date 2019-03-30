@@ -8,6 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 //导入路由
 import router from './router.js'
+import "./assets/base.scss"
 
 new Vue({
   render: h => h(App),
