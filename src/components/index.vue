@@ -23,20 +23,22 @@
     <el-container class="my-container">
       <!-- 边栏 -->
       <el-aside width="200px" class="my-aside">
-        <el-menu default-active="2" class="el-menu-vertical-demo">
+        <el-menu default-active="2" class="el-menu-vertical-demo" router>
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>导航一</span>
             </template>
-            <el-menu-item index="1-1">
+            <el-menu-item index="/users">
                 <span class="el-icon-menu"></span>
                 选项1</el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>
       <!-- 主体 -->
-      <el-main class="my-main">Main</el-main>
+      <el-main class="my-main">
+          <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -66,12 +68,13 @@ export default {
     }
   }
   .my-container {
-    flex: 1;
+    flex: 1;    
     .my-aside {
       background: #40e0d0;
     }
     .my-main {
       background-color: #e9967a;
+      padding-top: 0;
     }
   }
 }
