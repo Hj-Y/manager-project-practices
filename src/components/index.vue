@@ -53,6 +53,13 @@ export default {
       //编程式导航
       this.$router.push("/login");
     }
+  },
+  beforeCreate() {
+    if (window.sessionStorage.getItem("token")) {
+    } else {
+      this.$message.error("请您先登录呢亲!");
+      this.$router.push("/login");
+    }
   }
 };
 </script>
