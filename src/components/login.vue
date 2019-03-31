@@ -5,7 +5,13 @@
       <!-- 标题 -->
       <h2>用户登录</h2>
       <!-- 饿了么ui的form -->
-      <el-form label-position="top" label-width="80px" :model="loginForm" :rules="rules" ref="loginForm">
+      <el-form
+        label-position="top"
+        label-width="80px"
+        :model="loginForm"
+        :rules="rules"
+        ref="loginForm"
+      >
         <el-form-item label="用户名" prop="username">
           <el-input v-model="loginForm.username"></el-input>
         </el-form-item>
@@ -34,34 +40,44 @@ export default {
       rules: {
         username: [
           { required: true, message: "用户名不能为空", trigger: "blur" },
-          { min: 6, max: 16, message: "长度在 6 到 16 个字符", trigger: "blur" },
+          { min: 5, max: 16, message: "长度在 6 到 16 个字符", trigger: "blur" }
         ],
         password: [
           { required: true, message: "密码不能为空", trigger: "blur" },
-          { min: 6, max: 16, message: "长度在 6 到 16 个字符", trigger: "blur" },
-        ],
+          { min: 6, max: 16, message: "长度在 6 到 16 个字符", trigger: "blur" }
+        ]
       }
 
       // 表单验证 规则
     };
   },
   methods: {
-    submit(formName){
-      this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            this.$message.error("输入格式错误,请根据提示修改")
-            return false;
+    submit(formName) {
+      this.$refs[formName].validate(async valid => {
+        if (valid) {
+          let res = await this.$axios.post("login", this.loginForm);
+          //失败
+          if (res.data.meta.status === 400) {
+            this.$message.error(res.data.meta.msg);
+            // 成功
+          } else if (res.data.meta.status === 200) {
+            this.$message.success(res.data.meta.msg);
+            window.sessionStorage.setItem("token", res.data.data.token);
+            //编程式导航
+            this.$router.push("/");
           }
-        });
+        } else {
+          this.$message.error("输入格式错误,请根据提示修改");
+          return false;
+        }
+      });
     },
-     resetForm(formName) {
+    resetForm(formName) {
       //  console.log(this.$refs);
-       
-        this.$refs[formName].resetFields();
-      }
-  },
+
+      this.$refs[formName].resetFields();
+    }
+  }
 };
 </script>
 

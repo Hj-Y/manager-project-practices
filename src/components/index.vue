@@ -15,7 +15,7 @@
         </el-col>
         <el-col :span="2">
           <div class="grid-content bg-purple">
-            <el-button type="success" round class="logout-btn">退出</el-button>
+            <el-button type="success" round class="logout-btn" @click="logout">退出</el-button>
           </div>
         </el-col>
       </el-row>
@@ -30,14 +30,15 @@
               <span>导航一</span>
             </template>
             <el-menu-item index="/users">
-                <span class="el-icon-menu"></span>
-                选项1</el-menu-item>
+              <span class="el-icon-menu"></span>
+              选项1
+            </el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>
       <!-- 主体 -->
       <el-main class="my-main">
-          <router-view></router-view>
+        <router-view></router-view>
       </el-main>
     </el-container>
   </el-container>
@@ -45,7 +46,14 @@
 
 <script>
 export default {
-  name: "index"
+  name: "index",
+  methods: {
+    logout() {
+      window.sessionStorage.removeItem("token");
+      //编程式导航
+      this.$router.push("/login");
+    }
+  }
 };
 </script>
 
@@ -68,7 +76,7 @@ export default {
     }
   }
   .my-container {
-    flex: 1;    
+    flex: 1;
     .my-aside {
       background: #40e0d0;
     }

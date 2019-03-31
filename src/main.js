@@ -6,6 +6,10 @@ Vue.config.productionTip = false
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
+//导入axios 
+import axios from 'axios'
+axios.defaults.baseURL="http://localhost:8888/api/private/v1/"
+Vue.prototype.$axios=axios
 //导入路由
 import router from './router.js'
 import "./assets/base.scss"
