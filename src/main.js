@@ -15,7 +15,7 @@ Vue.prototype.$axios = axios;
 axios.interceptors.request.use(
   function(config) {
     //请求发送之前
-    config.headers.Authorization=window.sessionStorage.getItem("token")
+    config.headers.Authorization = window.sessionStorage.getItem("token");
     return config;
   },
   function(error) {
@@ -28,7 +28,11 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   function(response) {
     // 响应返回的数据
-    Vue.prototype.$message.success('请求数据成功');
+    if (["200", "201", "204"].indexOf(response.data.meta.status) != -1) {
+      Vue.prototype.$message.success(response.data.meta.msg);
+    } else {
+      Vue.prototype.$message.warning(response.data.meta.msg);
+    }
     return response;
   },
   function(error) {
