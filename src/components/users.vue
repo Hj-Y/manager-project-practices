@@ -3,14 +3,14 @@
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>用户</el-breadcrumb-item>
-      <el-breadcrumb-item>信息</el-breadcrumb-item>
+      <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+      <el-breadcrumb-item>用户列表</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 输入框 -->
     <!-- <div> -->
     <el-col :span="7">
-      <el-input placeholder="请输入内容">
-        <el-button slot="append" icon="el-icon-search"></el-button>
+      <el-input placeholder="请输入内容" v-model="sendData.query" @keyup.native.enter="search">
+        <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
       </el-input>
     </el-col>
     <el-col :span="2">
@@ -57,7 +57,7 @@ export default {
   name: "users",
   data() {
     return {
-      total:0,
+      total: 0,
       sendData: {
         query: "",
         pagenum: 1,
@@ -67,18 +67,23 @@ export default {
     };
   },
   methods: {
-    handleEdit(index, row) {}
+    handleEdit(index, row) {
+      console.log(index);
+    },
+    async search() {
+      let res = await this.$axios.get("users", {
+        // headers: {
+        //   Authorization: window.sessionStorage.getItem("token")
+        // },
+        params: this.sendData
+      });
+      console.log(res);
+      this.total = res.data.data.total;
+      this.userList = res.data.data.users;
+    }
   },
-  async created() {
-    let res = await this.$axios.get("users", {
-      headers: {
-        Authorization: window.sessionStorage.getItem("token")
-      },
-      params: this.sendData
-    });
-    console.log(res);
-    this.total = res.data.data.total;
-    this.userList = res.data.data.users;
+  created() {
+    this.search();
   }
 };
 </script>
