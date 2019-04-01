@@ -65,6 +65,8 @@
       :page-size="sendData.pagesize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="total"
+      @current-change="currentChange"
+      @size-change="sizeChange"
     ></el-pagination>
     <!-- 添加用户的对话框 -->
     <el-dialog title="添加用户" :visible.sync="addFormVisible">
@@ -108,7 +110,7 @@
     <!-- 编辑用户角色 -->
     <el-dialog title="用户角色" :visible.sync="roleFormVisible">
       <el-form>
-        <el-form-item label="当前用户" label-width="100px"></el-form-item>
+        <el-form-item label="当前用户" label-width="100px">{{editUser.username}}</el-form-item>
         <el-form-item label="请选择角色" label-width="100px">
           <el-select v-model="editUser.role_name" placeholder="请选择">
             <el-option
@@ -261,11 +263,22 @@ export default {
       let res = await this.$axios.put(`users/${this.editUser.id}/role`, {
         rid: this.editUser.role_name
       });
+      console.log(res);
+      
       if (res.data.meta.status === 200) {
         this.roleFormVisible = false;
         this.search();
       }
+    },
+    currentChange(current){
+      this.sendData.pagenum=current;
+      this.search();
+    },
+    sizeChange(size){
+      this.sendData.pagesize=size;
+      this.search();
     }
+
   },
   created() {
     this.search();

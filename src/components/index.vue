@@ -24,14 +24,14 @@
       <!-- 边栏 -->
       <el-aside width="200px" class="my-aside">
         <el-menu default-active="2" class="el-menu-vertical-demo" router>
-          <el-submenu index="1">
+          <el-submenu :index="item.id" v-for="item in menuList">
             <template slot="title">
               <i class="el-icon-location"></i>
-              <span>导航一</span>
+              <span>{{item.authName}}</span>
             </template>
-            <el-menu-item index="/users">
+            <el-menu-item :index="it.path" v-for="it in item.children">
               <span class="el-icon-menu"></span>
-              选项1
+              {{it.authName}}
             </el-menu-item>
           </el-submenu>
         </el-menu>
@@ -47,6 +47,11 @@
 <script>
 export default {
   name: "index",
+  data() {
+    return {
+      menuList:[],
+    }
+  },
   methods: {
     logout() {
       window.sessionStorage.removeItem("token");
@@ -60,7 +65,13 @@ export default {
       this.$message.error("请您先登录呢亲!");
       this.$router.push("/login");
     }
-  }
+  },
+  async created() {
+    let res=await this.$axios.get('menus')
+    console.log(res);
+    
+    this.menuList=res.data.data;
+  },
 };
 </script>
 
