@@ -9,6 +9,8 @@ import rights from "./components/rights.vue";
 import goods from "./components/goods.vue";
 import categories from "./components/categories.vue";
 import orders from "./components/orders.vue";
+import params from "./components/params.vue";
+import reports from "./components/reports.vue";
 
 //路由规则
 let routes = [
@@ -23,6 +25,10 @@ let routes = [
       { path: "goods", component: goods },
       { path: "categories", component: categories },
       { path: "orders", component: orders },
+      { path: "params", component: params },
+      { path: "reports", component: reports },
+      //重定向
+      { path: "", redirect: "users" },
     ]
   }
 ];

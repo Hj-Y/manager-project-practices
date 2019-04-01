@@ -47,6 +47,7 @@ import "./assets/base.scss";
 //面包屑导航组件
 import breadcrumb from './components/breadcrumb.vue';
 Vue.component('breadcrumb', breadcrumb)
+//导入echarts
 
 new Vue({
   render: h => h(App),

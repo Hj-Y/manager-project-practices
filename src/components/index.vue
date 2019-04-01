@@ -99,7 +99,7 @@ export default {
       background: #40e0d0;
     }
     .my-main {
-      background-color: #e9967a;
+      background-color: #e9eef3;
       padding-top: 0;
     }
   }
