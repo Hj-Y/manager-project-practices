@@ -284,5 +284,8 @@ export default {
 </script>
 
 <style lang="scss">
+.my-users{
+  background-color: #e9eef3;
+}
 
 </style>
