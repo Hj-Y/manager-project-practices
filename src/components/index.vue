@@ -23,8 +23,8 @@
     <el-container class="my-container">
       <!-- 边栏 -->
       <el-aside width="200px" class="my-aside">
-        <el-menu default-active="2" class="el-menu-vertical-demo" router>
-          <el-submenu :index="item.id" v-for="item in menuList">
+        <el-menu default-active="users" class="el-menu-vertical-demo" router>
+          <el-submenu :index="item.id+''" v-for="item in menuList">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>{{item.authName}}</span>

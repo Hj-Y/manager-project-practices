@@ -1,11 +1,8 @@
 <template>
   <div class="my-users">
     <!-- 面包屑导航 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <breadcrumb sectitle="用户管理" thirdtitle="用户列表"></breadcrumb>
+    
     <!-- 输入框 -->
     <!-- <div> -->
     <el-col :span="7">
@@ -287,10 +284,5 @@ export default {
 </script>
 
 <style lang="scss">
-.breadcrumb {
-  background: #d3dce6;
-  height: 50px;
-  line-height: 50px;
-  //  padding: 0;
-}
+
 </style>
