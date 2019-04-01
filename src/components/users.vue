@@ -49,7 +49,13 @@
             plain
             @click="delData(scope.row)"
           ></el-button>
-          <el-button type="warning" icon="el-icon-check" size="mini" plain></el-button>
+          <el-button
+            type="warning"
+            icon="el-icon-check"
+            size="mini"
+            plain
+            @click="showRole(scope.row)"
+          ></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -99,6 +105,26 @@
         <el-button type="primary" @click="submitEdit('editForm')">确 定</el-button>
       </div>
     </el-dialog>
+    <!-- 编辑用户角色 -->
+    <el-dialog title="用户角色" :visible.sync="roleFormVisible">
+      <el-form>
+        <el-form-item label="当前用户" label-width="100px"></el-form-item>
+        <el-form-item label="请选择角色" label-width="100px">
+          <el-select v-model="editUser.role_name" placeholder="请选择">
+            <el-option
+              v-for="item in roleList"
+              :key="item.id"
+              :label="item.roleName"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="roleFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="submitRole('editForm')">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -128,6 +154,11 @@ export default {
       },
       addFormVisible: false,
       editFormVisible: false,
+      roleFormVisible: false,
+      //用户角色列表
+      roleList: [],
+      //当前正在编辑的用户信息
+      editUser: {},
       addRules: {
         username: [
           { required: true, message: "用户名不能为空", trigger: "blur" },
@@ -183,6 +214,8 @@ export default {
         }
       });
     },
+
+    //用户编辑的提交
     async submitEdit(formName) {
       let res = await this.$axios.put(`users/${this.editForm.id}`, {
         email: this.editForm.email,
@@ -194,6 +227,7 @@ export default {
       //关闭弹窗
       this.editFormVisible = false;
     },
+    //删除用户的方法
     delData(row) {
       // let res=this.$axios.delete(`users/${row.id}`)
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
@@ -213,6 +247,24 @@ export default {
             message: "已取消删除"
           });
         });
+    },
+    //用户角色编辑列表的显示
+    async showRole(row) {
+      this.roleFormVisible = true;
+      // 保存用户编辑的信息
+      this.editUser = row;
+      // 获取所有角色列表
+      let res = await this.$axios.get("roles");
+      this.roleList = res.data.data;
+    },
+    async submitRole(formName) {
+      let res = await this.$axios.put(`users/${this.editUser.id}/role`, {
+        rid: this.editUser.role_name
+      });
+      if (res.data.meta.status === 200) {
+        this.roleFormVisible = false;
+        this.search();
+      }
     }
   },
   created() {
