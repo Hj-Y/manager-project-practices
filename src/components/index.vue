@@ -15,7 +15,7 @@
         </el-col>
         <el-col :span="2">
           <div class="grid-content bg-purple">
-            <el-button type="success" round class="logout-btn" @click="logout">退出</el-button>
+            <el-button type="primary" round class="logout-btn" @click="logout">退出</el-button>
           </div>
         </el-col>
       </el-row>
@@ -49,8 +49,8 @@ export default {
   name: "index",
   data() {
     return {
-      menuList:[],
-    }
+      menuList: []
+    };
   },
   methods: {
     logout() {
@@ -67,11 +67,11 @@ export default {
     }
   },
   async created() {
-    let res=await this.$axios.get('menus')
+    let res = await this.$axios.get("menus");
     console.log(res);
-    
-    this.menuList=res.data.data;
-  },
+
+    this.menuList = res.data.data;
+  }
 };
 </script>
 
@@ -83,7 +83,7 @@ export default {
   .my-header {
     height: 60px;
     line-height: 60px;
-    background-color: #87cefa;
+    background-color: #40e0d0;
     h2 {
       margin: 0;
       padding: 0;

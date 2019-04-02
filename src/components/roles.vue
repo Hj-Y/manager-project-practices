@@ -48,7 +48,7 @@ export default {
   name: "roles",
   data() {
     return {
-      roleList:[{},{}]
+      roleList:[]
     };
   },
 
@@ -150,7 +150,12 @@ export default {
       }
     }
   },
-  created() {}
+  async created() {
+    let res=await this.$axios.get('roles');
+    console.log(res);
+    this.roleList=res.data.data;
+    
+  }
 };
 </script>
 

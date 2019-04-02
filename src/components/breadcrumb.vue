@@ -17,6 +17,6 @@ export default {
   background: #d3dce6;
   height: 50px;
   line-height: 50px;
- 
+  padding-left: 20px;
 }
 </style>
