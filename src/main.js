@@ -18,6 +18,13 @@ import breadcrumb from './components/breadcrumb.vue';
 Vue.component('breadcrumb', breadcrumb)
 //导入echarts
 
+//全局过滤器
+//导入moment插件
+import moment from 'moment'
+Vue.filter('formatTime', (value,formation)=>{
+  return moment(value).format(formation)
+})
+
 new Vue({
   render: h => h(App),
   router
