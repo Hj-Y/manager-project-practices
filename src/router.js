@@ -11,10 +11,13 @@ import categories from "./components/categories.vue";
 import orders from "./components/orders.vue";
 import params from "./components/params.vue";
 import reports from "./components/reports.vue";
+//error页面
+import error from "./components/error.vue";
 
 //路由规则
 let routes = [
   { path: "/login", component: login, meta: { noLogin: true } },
+  { path: "/error", component: error },
   {
     path: "/",
     component: index,
@@ -39,8 +42,12 @@ const router = new VueRouter({
 //注册全局前置守卫
 router.beforeEach((to, from, next) => {
   console.log(to);
-  
-  if (to.meta.noLogin===true) {
+  if (to.matched.length === 0) {
+    Vue.prototype.$message.error("您访问的路径不存在");
+    next("/error");
+  }
+
+  if (to.meta.noLogin === true) {
     //直接去
     next();
   } else {
