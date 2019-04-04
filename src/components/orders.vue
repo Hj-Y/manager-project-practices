@@ -34,7 +34,7 @@
     <!-- 分页 -->
     <el-pagination
       :page-sizes="[5, 10, 15, 20]"
-      :page-size="1"
+      :page-size="pagesize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="total"
       @size-change="sizeChange"

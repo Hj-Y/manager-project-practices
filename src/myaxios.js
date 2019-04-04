@@ -26,7 +26,6 @@ export default {
     axios.interceptors.response.use(
       function(response) {
 
-        
         if (response.data.meta.msg==='无效token'&&response.data.meta.status===400) {
             //伪造的token
             Vue.prototype.$message.warning('伪造的token搞我,牛逼 !' )
